@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Bebe</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffebee;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+        
+        .container {
+            text-align: center;
+            z-index: 10;
+            perspective: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 20px;
+        }
+        
+        .envelope-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .envelope {
+            width: 100%;
+            height: 100%;
+            max-width: 500px;
+            max-height: 333px;
+            background-color: #ff6b81;
+            border-radius: 8px;
+            position: relative;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            margin: 0 auto;
+        }
+        
+        .envelope:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 250px solid transparent;
+            border-right: 250px solid transparent;
+            border-top: 166px solid #ff4757;
+            transform-origin: top;
+            transition: all 0.5s ease;
+            transform: translateX(-50%) rotateX(0deg);
+            z-index: 3;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        .envelope.open {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .envelope.open:before {
+            transform: translateX(-50%) rotateX(180deg);
+        }
+        
+        .envelope-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #ff6b81;
+            border-radius: 8px;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 32px;
+            font-family: 'Dancing Script', cursive;
+            backface-visibility: hidden;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .message {
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            background: linear-gradient(to bottom, #fff, #ffe6e6);
+            border-radius: 8px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: scale(0);
+            opacity: 0;
+            transition: all 0.5s ease 0.3s;
+            z-index: 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .envelope.open ~ .message {
+            transform: scale(1);
+            opacity: 1;
+            z-index: 10;
+        }
+        
+        .message h3 {
+            font-family: 'Dancing Script', cursive;
+            color: #ff4757;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 36px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .message p {
+            color: #d23669;
+            margin-bottom: 35px;
+            font-size: 24px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .gif-container {
+            margin: 30px 0;
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .gif-container img {
+            max-height: 100%;
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            border: 3px solid #ff6b81;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 25px;
+        }
+        
+        .btn {
+            padding: 12px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-yes {
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            color: white;
+        }
+        
+        .btn-yes:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(46, 125, 50, 0.3);
+        }
+        
+        .btn-yes:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-no {
+            background: linear-gradient(to right, #f44336, #c62828);
+            color: white;
+        }
+        
+        .btn-no:hover {
+            box-shadow: 0 10px 25px rgba(198, 40, 40, 0.3);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: #ff6b81;
+            transform: rotate(45deg);
+            animation: float-up 6s linear infinite;
+            opacity: 0;
+        }
+        
+        .floating-heart:before, .floating-heart:after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: #ff6b81;
+            border-radius: 50%;
+        }
+        
+        .floating-heart:before {
+            top: -12.5px;
+            left: 0;
+        }
+        
+        .floating-heart:after {
+            top: 0;
+            left: -12.5px;
+        }
+        
+        @keyframes float-up {
+            0% {
+                transform: rotate(45deg) translateY(0) scale(0.5);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: rotate(45deg) translateY(-100vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: gold;
+            border-radius: 50%;
+            animation: sparkle 1s ease-out infinite;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        @keyframes sparkle {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        
+        .valentine-title {
+            font-family: 'Dancing Script', cursive;
+            color: #ff4757;
+            font-size: 48px;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+            animation: pulse 2s infinite;
+            transition: opacity 0.5s ease;
+        }
+        
+        .valentine-title.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+            }
+            50% {
+                transform: scale(1.05);
+                text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+            }
+            100% {
+                transform: scale(1);
+                text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+            }
+        }
+        
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.3); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.3); }
+            70% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-container" id="hearts-container"></div>
+    <div class="container">
+        <h1 class="valentine-title" id="valentineTitle">For My Beautiful Bebe</h1>
+        <div class="envelope-wrapper">
+            <div class="envelope" id="envelope">
+                <div class="envelope-front"><br> <br> Click Me My Love!</div>
+            </div>
+            <div class="message" id="message">
+                <br> 
+                <br>
+                <br>           
+                <br>  
+                <h3>HAPPY BIRTHDAY BEBE!</h3>
+                <p>MAHAL MO BA AKO?</p>                 
+
+                <div class="gif-container">
+                    <img src="love.gif" alt="Romantic GIF">
+                </div>
+                <div class="buttons">
+                    <button class="btn btn-yes" id="btnYes">YES</button>
+                    <button class="btn btn-no" id="btnNo">NO</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts background
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const colors = ['#ff6b81', '#ff4757', '#ff8d8d', '#ffb8b8'];
+            
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.top = `${Math.random() * 100}vh`;
+                heart.style.animationDelay = `${Math.random() * 8}s`;
+                heart.style.opacity = Math.random() * 0.7;
+                heart.style.transform = `rotate(45deg) scale(${Math.random() * 0.7 + 0.5})`;
+                heart.style.filter = `brightness(${Math.random() * 0.5 + 0.7})`;
+                container.appendChild(heart);
+            }
+        }
+        
+        // Create sparkle effect
+        function createSparkle(x, y) {
+            const colors = ['gold', '#ff6b81', '#ffcc00', '#ff66b2'];
+            const size = Math.random() * 8 + 4;
+            
+            for (let i = 0; i < 3; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.style.left = `${x + (Math.random() - 0.5) * 20}px`;
+                sparkle.style.top = `${y + (Math.random() - 0.5) * 20}px`;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                sparkle.style.animationDelay = `${i * 0.1}s`;
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 1000);
+            }
+        }
+        
+        // Envelope interaction
+        const envelope = document.getElementById('envelope');
+        const message = document.getElementById('message');
+        const btnYes = document.getElementById('btnYes');
+        const btnNo = document.getElementById('btnNo');
+        const valentineTitle = document.getElementById('valentineTitle');
+        
+        let isOpen = false;
+        
+        envelope.addEventListener('click', () => {
+            isOpen = !isOpen;
+            if (isOpen) {
+                envelope.classList.add('open');
+                valentineTitle.classList.add('hidden');
+                // Create multiple sparkles around the envelope
+                const rect = envelope.getBoundingClientRect();
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        createSparkle(
+                            rect.left + Math.random() * rect.width,
+                            rect.top + Math.random() * rect.height
+                        );
+                    }, i * 100);
+                }
+            } else {
+                envelope.classList.remove('open');
+                valentineTitle.classList.remove('hidden');
+            }
+        });
+        
+        // Yes button - redirect to bebe.html
+        btnYes.addEventListener('click', (e) => {
+            e.stopPropagation();
+            createSparkle(e.clientX, e.clientY);
+            
+            // Create a heart explosion effect
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    createSparkle(
+                        e.clientX + (Math.random() - 0.5) * 200,
+                        e.clientY + (Math.random() - 0.5) * 200
+                    );
+                }, i * 50);
+            }
+            
+            // Create floating hearts animation
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('floating-heart');
+                    heart.style.left = `${e.clientX}px`;
+                    heart.style.top = `${e.clientY}px`;
+                    heart.style.animation = `float-up 2s linear forwards`;
+                    heart.style.animationDelay = `${i * 0.05}s`;
+                    document.getElementById('hearts-container').appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 2000);
+                }, i * 50);
+            }
+            
+            setTimeout(() => {
+                window.location.href = 'bebe.html';
+            }, 1500);
+        });
+        
+        // No button - move away when hovered but stay within screen
+        btnNo.addEventListener('mouseover', () => {
+            const btnRect = btnNo.getBoundingClientRect();
+            const maxX = window.innerWidth - btnRect.width - 20;
+            const maxY = window.innerHeight - btnRect.height - 20;
+            
+            // Calculate new position ensuring it stays within screen bounds
+            let randomX = Math.max(20, Math.min(maxX, Math.random() * maxX));
+            let randomY = Math.max(20, Math.min(maxY, Math.random() * maxY));
+            
+            btnNo.style.position = 'absolute';
+            btnNo.style.left = `${randomX}px`;
+            btnNo.style.top = `${randomY}px`;
+            
+            createSparkle(randomX + btnRect.width/2, randomY + btnRect.height/2);
+            
+            // Play a sound effect (optional)
+            const audio = new Audio('https://www.soundjay.com/buttons/sounds/button-09.mp3');
+            audio.volume = 0.3;
+            audio.play().catch(e => console.log("Audio play failed:", e));
+        });
+        
+        // Initialize
+        window.addEventListener('load', () => {
+            createHearts();
+            
+            // Add sparkle effect on mouse move
+            document.addEventListener('mousemove', (e) => {
+                if (Math.random() > 0.95) {
+                    createSparkle(e.clientX, e.clientY);
+                }
+            });
+            
+            // Make the envelope pulse gently to attract attention
+            setInterval(() => {
+                if (!isOpen) {
+                    envelope.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        envelope.style.transform = 'scale(1)';
+                    }, 500);
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html> 
