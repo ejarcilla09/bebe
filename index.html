@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Bebe</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
         
@@ -339,12 +341,97 @@
             42% { transform: scale(1.3); }
             70% { transform: scale(1); }
         }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .valentine-title {
+                font-size: 36px;
+                margin-bottom: 30px;
+            }
+            
+            .envelope-wrapper {
+                height: 300px;
+            }
+            
+            .envelope-front {
+                font-size: 24px;
+            }
+            
+            .message h3 {
+                font-size: 28px;
+                margin-bottom: 15px;
+            }
+            
+            .message p {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .gif-container {
+                height: 120px;
+                margin: 20px 0;
+            }
+            
+            .buttons {
+                gap: 15px;
+                margin-top: 15px;
+            }
+            
+            .btn {
+                padding: 10px 30px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .valentine-title {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+            
+            .envelope-wrapper {
+                height: 250px;
+            }
+            
+            .envelope-front {
+                font-size: 20px;
+            }
+            
+            .message {
+                padding: 20px;
+            }
+            
+            .message h3 {
+                font-size: 24px;
+            }
+            
+            .message p {
+                font-size: 18px;
+            }
+            
+            .gif-container {
+                height: 100px;
+                margin: 15px 0;
+            }
+            
+            .buttons {
+                gap: 10px;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                padding: 8px 25px;
+                font-size: 16px;
+                width: 150px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="hearts-container" id="hearts-container"></div>
     <div class="container">
-        <h1 class="valentine-title" id="valentineTitle">For My Beautiful Bebe</h1>
+        <h1 class="valentine-title text-center" id="valentineTitle">For My Beautiful Bebe</h1>
         <div class="envelope-wrapper">
             <div class="envelope" id="envelope">
                 <div class="envelope-front"><br> <br> Click Me My Love!</div>
@@ -358,7 +445,7 @@
                 <p>MAHAL MO BA AKO?</p>                 
 
                 <div class="gif-container">
-                    <img src="love.gif" alt="Romantic GIF">
+                    <img src="love.gif" alt="Romantic GIF" class="img-fluid">
                 </div>
                 <div class="buttons">
                     <button class="btn btn-yes" id="btnYes">YES</button>
@@ -368,6 +455,9 @@
         </div>
     </div>
 
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
         // Create floating hearts background
         function createHearts() {
@@ -521,4 +611,4 @@
         });
     </script>
 </body>
-</html> 
+</html>
